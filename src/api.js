@@ -5,13 +5,15 @@ class api {
     config = {
         'X-API-KEY' : apiKey
     }
-    
+
     getPrefectureList(){
         axios.get(
             `${this.BASE_URL}/prefectures`,
             this.config
         ).then(
-
+            (res) => {
+                console.log(res);
+            }
         )
     }
 
@@ -20,7 +22,11 @@ class api {
             `${this.BASE_URL}/population/composition/perYear?cityCode=-?prefCode=${prefectureCode}`,
             this.config
         ).then(
-
+            (res) => {
+                console.log(res);
+            }
         )
     }
 }
+
+export default api;
