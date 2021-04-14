@@ -20,7 +20,7 @@ import {apiKey} from "./config";
     export const getPopulationComposition = (prefectureCode) => {
         return (
             axios.get(
-                `${BASE_URL}/population/composition/perYear?cityCode=-?prefCode=${prefectureCode}`,
+                `${BASE_URL}/population/composition/perYear?cityCode=-&prefCode=${prefectureCode}`,
                 config
             )
         )
