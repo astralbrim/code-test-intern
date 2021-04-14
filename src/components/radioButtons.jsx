@@ -1,17 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { getPopulationComposition } from '../api'
 
-const RadioButtons = () => {
+const RadioButtons = (props) => {
+    const {prefectureData} = props;
     return (
-        <div>
-            <input type="radio"/>
-            <input type="radio"/>
-            <input type="radio"/>
-            <input type="radio"/>
-            <input type="radio"/>
-            <input type="radio"/>
-            <input type="radio"/>
-        </div>
-
+    prefectureData?.map(
+        (d, index) => {
+            return(
+                <li key={`data_${index}`}>{d?.prefName} <input type="radio" /></li>
+            )
+        }
+    )
     )
 
 }

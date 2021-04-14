@@ -6,13 +6,14 @@ import { getPrefectureList } from '../api'
 import './App.css';
 
 function App() {
-    const [prefectureData, setPrefectureData] = useState([{prefCode: "", prefName: ""}]);
+    const [prefectureData, setPrefectureData] = useState([]);
 
     useEffect(
          () => {
              const get = async () => {
                  const result = await getPrefectureList();
-                 setPrefectureData(result.data.result);
+                  setPrefectureData(result.data.result);
+                 console.log(prefectureData);
              }
              get();
         },
@@ -26,7 +27,6 @@ function App() {
             <Chart/>
         </div>
     )
-
 
 }
 
