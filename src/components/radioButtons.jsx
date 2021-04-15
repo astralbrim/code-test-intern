@@ -11,14 +11,14 @@ const RadioButtons = (props) => {
         if (e.target.checked === true) {
             // チェックを入れたときの処理
             const get = async () => {
-                let result = await getPopulationComposition(targetKey);
+                const result = await getPopulationComposition(targetKey);
                 result.data.result.data[0].data.prefCode = targetKey;
                 setPopulationData([...populationData, result.data.result.data[0]]); //　配列の末尾にチェックが入った都道府県のデータを追加
             }
             get();
         }else{
             // チェックを外した時の処理
-            let filteredArray = populationData.filter(
+            const filteredArray = populationData.filter(
                 (obj) => {
                 return obj.data.prefCode !== targetKey // targetKey と prefCode が一致している要素をfalseとして返す
             })
