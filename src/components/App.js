@@ -7,7 +7,7 @@ import './App.css';
 
 function App() {
     const [prefectureData, setPrefectureData] = useState([]);
-    const [populationData, setPopulationData] = useState({})
+    const [populationData, setPopulationData] = useState([]);
 
     useEffect(
          () => {
@@ -23,9 +23,10 @@ function App() {
 
     return (
         <div className="App">
+            {console.log(populationData)}
             <Header/>
-            <RadioButtons prefectureData={prefectureData} setPupulationData={setPopulationData}/>
-            <Chart/>
+            <RadioButtons prefectureData={prefectureData} populationData={{populationData}} setPupulationData={setPopulationData}/>
+            <Chart populationData={populationData}/>
         </div>
     )
 
