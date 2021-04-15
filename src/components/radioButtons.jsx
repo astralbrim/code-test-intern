@@ -6,22 +6,32 @@ const RadioButtons = (props) => {
 
     const handleRadioButtons = (e) => {
         const targetKey = e.currentTarget.dataset.key;
+        console.log(e.target.checked, e.currentTarget.dataset.key);
 
-        const get = async () => {
-            const result = await getPopulationComposition(targetKey);
-            result.data.result.data[0].prefCode = targetKey;
-            console.log(typeof (result.data.result.data[0].data));
-            setPopulationData([...populationData, ...result.data.result.data[0].data]);
-            console.log(populationData);
+        if (e.target.checked === true) {
+            // チェックを入れたときの処理
+            const get = async () => {
+                let result = await getPopulationComposition(targetKey);
+                result.data.result.data[0].data.prefCode = targetKey;
+                setPopulationData([...populationData, result.data.result.data[0]]); //　配列の末尾にチェックが入った都道府県のデータを追加
+            }
+            get();
+        }else{
+            // チェックを外した時の処理
+            let filteredArray = populationData.filter(
+                (obj) => {
+                return obj.data.prefCode !== targetKey // targetKey と prefCode が一致している要素をfalseとして返す
+            })
+
+            setPopulationData(filteredArray); // targetKey と prefCode が一致していない要素のみを残した新しい配列を格納
         }
-        get();
 
     }
     return (
         prefectureData?.map(
             (d, index) => {
                 return(
-                    <li >{d?.prefName} <input type="radio" data-key={index + 1} onChange={(e) => handleRadioButtons(e)} /></li>
+                    <li >{d?.prefName} <input type="checkbox" data-key={index + 1} onChange={(e) => handleRadioButtons(e)} /></li>
                 )
             }
         )
