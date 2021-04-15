@@ -14,7 +14,6 @@ function App() {
              const get = async () => {
                  const result = await getPrefectureList();
                   setPrefectureData(result.data.result);
-                 console.log(prefectureData);
              }
              get();
         },
@@ -23,7 +22,6 @@ function App() {
 
     return (
         <div className="App">
-            {console.log(populationData)}
             <Header/>
             <RadioButtons prefectureData={prefectureData} populationData={populationData} setPopulationData={setPopulationData}/>
             <Chart populationData={populationData}/>
