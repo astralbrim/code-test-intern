@@ -25,7 +25,7 @@ function App() {
         <div className="App">
             {console.log(populationData)}
             <Header/>
-            <RadioButtons prefectureData={prefectureData} populationData={{populationData}} setPupulationData={setPopulationData}/>
+            <RadioButtons prefectureData={prefectureData} populationData={populationData} setPopulationData={setPopulationData}/>
             <Chart populationData={populationData}/>
         </div>
     )
