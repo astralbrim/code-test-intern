@@ -2,13 +2,17 @@ import React, {useState} from 'react';
 import { getPopulationComposition } from '../api'
 
 const RadioButtons = (props) => {
-    const {prefectureData, setPopulationData} = props;
+    const {prefectureData, populationData, setPopulationData} = props;
 
     const handleRadioButtons = (e) => {
         const targetKey = e.currentTarget.dataset.key;
+
         const get = async () => {
             const result = await getPopulationComposition(targetKey);
-            setPopulationData(result.data.result.data[0]);
+            result.data.result.data[0].prefCode = targetKey;
+            console.log(typeof (result.data.result.data[0].data));
+            setPopulationData([...populationData, ...result.data.result.data[0].data]);
+            console.log(populationData);
         }
         get();
 
