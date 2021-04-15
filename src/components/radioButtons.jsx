@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { getPopulationComposition } from '../api'
 
 const RadioButtons = (props) => {
@@ -6,7 +6,6 @@ const RadioButtons = (props) => {
 
     const handleRadioButtons = (e) => {
         const targetKey = e.currentTarget.dataset.key;
-        console.log(e.target.checked, e.currentTarget.dataset.key);
 
         if (e.target.checked === true) {
             // チェックを入れたときの処理
@@ -23,6 +22,7 @@ const RadioButtons = (props) => {
                 return obj.data.prefCode !== targetKey // targetKey と prefCode が一致している要素をfalseとして返す
             })
 
+            console.log(filteredArray)
             setPopulationData(filteredArray); // targetKey と prefCode が一致していない要素のみを残した新しい配列を格納
         }
 
@@ -31,7 +31,7 @@ const RadioButtons = (props) => {
         prefectureData?.map(
             (d, index) => {
                 return(
-                    <li >{d?.prefName} <input type="checkbox" data-key={index + 1} onChange={(e) => handleRadioButtons(e)} /></li>
+                    <li>{d?.prefName} <input type="checkbox" data-key={index + 1} onChange={(e) => handleRadioButtons(e)} /></li>
                 )
             }
         )
