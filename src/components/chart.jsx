@@ -13,7 +13,7 @@ const Chart = (props) => {
                 xAxis: {
                     title: {
                         text: "年"
-                    }
+                    },
                 },
                 yAxis: {
                     title: {
@@ -39,20 +39,17 @@ const Chart = (props) => {
     // populationData に変化があったとき series を更新する
     useEffect(
         () => {
-            const tmp = populationData.map(
-                (value1) => {
-                    console.log(value1);
-                    return (
-                        value1.data.map(
-                            (value2) => {
-                                return value2.value;
-                            }
-                        )
-                    );
-                }
-            )
-            setSeries([...series, tmp]);
-            console.log(series);
+            console.log(populationData.slice(-1)[0])
+            if (populationData.slice(-1)[0] !== undefined){
+                const tmp = populationData.slice(-1)[0].data.map(
+                    (value) => {
+                        return value.value;
+                    }
+                )
+                setSeries([...series, tmp]);
+                console.log(series);
+            }
+
         },[populationData]
     )
 
