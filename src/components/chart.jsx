@@ -56,11 +56,7 @@ const Chart = (props) => {
                 } else { // populationData の要素が削除されたとき
                         setSeries(populationData.filter(
                             (obj, index) => {
-                                if(index === populationData.length){
-                                    return false;
-                                }else{
-                                    return true;
-                                }
+                                return index !== populationData.length;
                             }
                         ));
                 }
