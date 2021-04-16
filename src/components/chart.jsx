@@ -5,33 +5,62 @@ import HighchartsReact from 'highcharts-react-official';
 const Chart = (props) => {
     const {populationData} = props;
     const creatOptions = (series) => {
-        return (
-            {
+        return ({
                 title: {
-                    text: "人口構成"
+                    text: '人口構成のグラフ'
                 },
-                xAxis: {
-                    title: {
-                        text: "年"
-                    },
+
+                subtitle: {
+                    text: 'Source: RESAS API'
                 },
+
                 yAxis: {
                     title: {
-                        text: "人口"
+                        text: '人口'
                     }
                 },
+
+                xAxis: {
+                    title: {
+                        text: '年'
+                    }
+                },
+
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+
                 plotOptions: {
                     series: {
                         label: {
                             connectorAllowed: false
                         },
-                        pointInterval: 5,
                         pointStart: 1960,
-                    },
+                        pointInterval: 5,
+                    }
                 },
-                series: series
+
+                series: series,
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
             }
-        )
+
+    )
     }
     const [lastPopulationData, setLastPopulationData] = useState([])
     const [series, setSeries] = useState([]);
@@ -49,8 +78,8 @@ const Chart = (props) => {
                             return value.value;
                         }
                     )
-                    console.log(series);
-                    setSeries([...series, tmp]);
+                    const tmpPrefName = populationData.slice(-1)[0].data.prefName
+                    setSeries([...series, {name: tmpPrefName, data: tmp}]);
                 } else { // populationData の要素が削除されたとき
                         setSeries(populationData.filter(
                             (obj, index) => {

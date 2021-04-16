@@ -6,12 +6,14 @@ const RadioButtons = (props) => {
 
     const handleRadioButtons = (e) => {
         const targetKey = e.currentTarget.dataset.key;
+        const targetPrefName = e.currentTarget.dataset.prefname;
 
         if (e.target.checked === true) {
             // チェックを入れたときの処理
             const get = async () => {
                 const result = await getPopulationComposition(targetKey);
                 result.data.result.data[0].data.prefCode = targetKey;
+                result.data.result.data[0].data.prefName = targetPrefName;
                 setPopulationData([...populationData, result.data.result.data[0]]); //　配列の末尾にチェックが入った都道府県のデータを追加
             }
             get();
@@ -30,7 +32,7 @@ const RadioButtons = (props) => {
         prefectureData?.map(
             (d, index) => {
                 return(
-                    <li>{d?.prefName} <input type="checkbox" data-key={index + 1} onChange={(e) => handleRadioButtons(e)} /></li>
+                    <li>{d?.prefName} <input type="checkbox" data-prefName={d?.prefName} data-key={index + 1} onChange={(e) => handleRadioButtons(e)} /></li>
                 )
             }
         )
