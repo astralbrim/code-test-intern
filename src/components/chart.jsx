@@ -51,10 +51,18 @@ const Chart = (props) => {
                             return value.value;
                         }
                     )
-                    setSeries([...series, tmp]);
                     console.log(series);
+                    setSeries([...series, tmp]);
                 } else { // populationData の要素が削除されたとき
-                        setSeries(populationData.pop());
+                        setSeries(populationData.filter(
+                            (obj, index) => {
+                                if(index === populationData.length){
+                                    return false;
+                                }else{
+                                    return true;
+                                }
+                            }
+                        ));
                 }
             }
             }, [populationData]
