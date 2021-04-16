@@ -41,9 +41,7 @@ const Chart = (props) => {
     useEffect(
         () => {
             if (populationData.slice(-1)[0] !== undefined) { // 最初は配列の要素が undefinedなら無視
-                console.log(lastPopulationData, populationData);
                 const lastPopulationDataLength = lastPopulationData.length;
-                console.log(lastPopulationData.length, populationData.length);
                 setLastPopulationData(populationData); // 一個前のpopulationData を更新
                 if (lastPopulationDataLength < populationData.length) { // populationData に要素が追加された時の処理
                     const tmp = populationData.slice(-1)[0].data.map( // 配列の末尾要素の参照

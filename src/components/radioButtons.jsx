@@ -22,7 +22,6 @@ const RadioButtons = (props) => {
                 return obj.data.prefCode !== targetKey // targetKey と prefCode が一致している要素をfalseとして返す
             })
 
-            console.log(filteredArray)
             setPopulationData(filteredArray); // targetKey と prefCode が一致していない要素のみを残した新しい配列を格納
         }
 
