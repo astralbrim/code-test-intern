@@ -12,16 +12,27 @@ const RadioButtons = (props) => {
             // チェックを入れたときの処理
             const get = async () => {
                 const result = await getPopulationComposition(targetKey);
-                result.data.result.data[0].data.prefCode = targetKey;
-                result.data.result.data[0].data.prefName = targetPrefName;
-                setPopulationData([...populationData, result.data.result.data[0]]); //　配列の末尾にチェックが入った都道府県のデータを追加
+                const resultData = result.data.result.data[0]
+                console.log(resultData)
+                resultData.data.prefCode = targetKey;
+                resultData.data.prefName = targetPrefName;
+                const tmpValue = resultData.data.map(
+                    (value) => {
+                        return value.value;
+                    }
+                )
+                console.log(tmpValue)
+                const tmpPrefName = resultData.data.prefName;
+                setPopulationData([...populationData, {name: tmpPrefName, data: tmpValue}]); //　配列の末尾にチェックが入った都道府県のデータを追加
             }
             get();
         }else{
             // チェックを外した時の処理
+            console.log(populationData)
             const filteredArray = populationData.filter(
                 (obj) => {
-                return obj.data.prefCode !== targetKey // targetKey と prefCode が一致している要素をfalseとして返す
+                    console.log(obj);
+                return obj.name !== targetPrefName // targetKey と prefCode が一致している要素をfalseとして返す
             })
 
             setPopulationData(filteredArray); // targetKey と prefCode が一致していない要素のみを残した新しい配列を格納
@@ -29,16 +40,21 @@ const RadioButtons = (props) => {
 
     }
     return (
-        prefectureData?.map(
-            (d, index) => {
-                return(
-                    <li>{d?.prefName} <input type="checkbox" data-prefName={d?.prefName} data-key={index + 1} onChange={(e) => handleRadioButtons(e)} /></li>
+        <div className="checkboxes">
+            {
+                prefectureData?.map(
+                    (d, index) => {
+                        return (
+                            <li>{d?.prefName} <input type="checkbox" data-prefname={d?.prefName} data-key={index + 1}
+                                                     onChange={(e) => handleRadioButtons(e)}/></li>
+                        )
+                    }
                 )
             }
-        )
+        </div>
 
     )
 
-}
+};
 
 export default RadioButtons;
