@@ -1,23 +1,25 @@
 import axios from 'axios';
-import { apiKey } from './config';
 
 const BASE_URL = 'https://opendata.resas-portal.go.jp/api/v1';
-const config = {
-  headers: {
-    'X-API-KEY': apiKey,
-  },
-};
 
-export const getPrefectureList = () => (
+export const getPrefectureList = (apiKey) => (
   axios.get(
     `${BASE_URL}/prefectures`,
-    config,
+    {
+      headers: {
+        'X-API-KEY': apiKey,
+      },
+    },
   )
 );
 
-export const getPopulationComposition = (prefectureCode) => (
+export const getPopulationComposition = (prefectureCode, apiKey) => (
   axios.get(
     `${BASE_URL}/population/composition/perYear?cityCode=-&prefCode=${prefectureCode}`,
-    config,
+    {
+      headers: {
+        'X-API-KEY': apiKey,
+      },
+    },
   )
 );

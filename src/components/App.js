@@ -8,16 +8,23 @@ import './App.css';
 function App() {
   const [prefectureData, setPrefectureData] = useState([]);
   const [populationData, setPopulationData] = useState([]);
+  const [apiKey, setApiKey] = useState('');
 
   useEffect(
     () => {
+      setApiKey(window.location.search.substring(1));
+    },
+    [],
+  );
+  useEffect(
+    () => {
       const get = async () => {
-        const result = await getPrefectureList();
+        const result = await getPrefectureList(apiKey);
         setPrefectureData(result.data.result);
       };
       get().catch();
     },
-    [],
+    [apiKey],
   );
 
   return (
@@ -28,6 +35,7 @@ function App() {
         prefectureData={prefectureData}
         populationData={populationData}
         setPopulationData={setPopulationData}
+        apiKey={apiKey}
       />
       <Chart populationData={populationData} />
     </div>

@@ -2,8 +2,9 @@ import React from 'react';
 import { getPopulationComposition } from '../api';
 
 const RadioButtons = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const { prefectureData, populationData, setPopulationData } = props;
+  const { // eslint-disable-next-line react/prop-types
+    prefectureData, populationData, setPopulationData, apiKey,
+  } = props;
 
   const handleRadioButtons = (e) => {
     const targetKey = e.currentTarget.dataset.key;
@@ -12,7 +13,7 @@ const RadioButtons = (props) => {
     if (e.target.checked === true) {
       // チェックを入れたときの処理
       const get = async () => {
-        const result = await getPopulationComposition(targetKey);
+        const result = await getPopulationComposition(targetKey, apiKey);
         const resultData = result.data.result.data[0];
         resultData.data.prefCode = targetKey;
         resultData.data.prefName = targetPrefName;
