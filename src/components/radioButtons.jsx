@@ -32,10 +32,10 @@ const RadioButtons = (props) => {
             const filteredArray = populationData.filter(
                 (obj) => {
                     console.log(obj);
-                return obj.name !== targetPrefName // targetKey と prefCode が一致している要素をfalseとして返す
+                return obj.name !== targetPrefName // targetName と prefName が一致している要素をfalseとして返す
             })
 
-            setPopulationData(filteredArray); // targetKey と prefCode が一致していない要素のみを残した新しい配列を格納
+            setPopulationData(filteredArray); // targetName と prefName が一致していない要素のみを残した新しい配列を格納
         }
 
     }
