@@ -1,82 +1,79 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
 const Chart = (props) => {
-    const {populationData} = props;
-    const creatOptions = (series) => {
-        return ({
-                title: {
-                    text: '人口構成のグラフ'
-                },
+  // eslint-disable-next-line react/prop-types
+  const { populationData } = props;
+  const creatOptions = (series) => ({
+    title: {
+      text: '人口構成のグラフ',
+    },
 
-                subtitle: {
-                    text: 'Source: RESAS API'
-                },
+    subtitle: {
+      text: 'Source: RESAS API',
+    },
 
-                yAxis: {
-                    title: {
-                        text: '人口'
-                    }
-                },
+    yAxis: {
+      title: {
+        text: '人口',
+      },
+    },
 
-                xAxis: {
-                    title: {
-                        text: '年'
-                    }
-                },
+    xAxis: {
+      title: {
+        text: '年',
+      },
+    },
 
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
+    legend: {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+    },
 
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        },
-                        pointStart: 1960,
-                        pointInterval: 5,
-                    }
-                },
+    plotOptions: {
+      series: {
+        label: {
+          connectorAllowed: false,
+        },
+        pointStart: 1960,
+        pointInterval: 5,
+      },
+    },
 
-                series: series,
+    series,
 
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 500
-                        },
-                        chartOptions: {
-                            legend: {
-                                layout: 'horizontal',
-                                align: 'center',
-                                verticalAlign: 'bottom'
-                            }
-                        }
-                    }]
-                }
-            }
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500,
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom',
+          },
+        },
+      }],
+    },
+  }
 
-    )
-    }
-    const [options, setOptions] = useState({});
+  );
+  const [options, setOptions] = useState({});
 
-
-    // series に変化があったとき optionsを更新する
-    useEffect(
-        () => {
-            console.log(populationData);
-            setOptions(creatOptions(populationData));
-        },[populationData]
-    )
-    return (
-        <div className="chart">
-            <HighchartsReact highcharts={Highcharts} options={options}/>
-        </div>
-    )
-}
+  // series に変化があったとき optionsを更新する
+  useEffect(
+    () => {
+      setOptions(creatOptions(populationData));
+    }, [populationData],
+  );
+  return (
+    <div className="chart">
+      <HighchartsReact highcharts={Highcharts} options={options} />
+    </div>
+  );
+};
 
 export default Chart;

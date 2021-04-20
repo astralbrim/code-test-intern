@@ -1,60 +1,62 @@
 import React from 'react';
-import { getPopulationComposition } from '../api'
+import { getPopulationComposition } from '../api';
 
 const RadioButtons = (props) => {
-    const {prefectureData, populationData, setPopulationData} = props;
+  // eslint-disable-next-line react/prop-types
+  const { prefectureData, populationData, setPopulationData } = props;
 
-    const handleRadioButtons = (e) => {
-        const targetKey = e.currentTarget.dataset.key;
-        const targetPrefName = e.currentTarget.dataset.prefname;
+  const handleRadioButtons = (e) => {
+    const targetKey = e.currentTarget.dataset.key;
+    const targetPrefName = e.currentTarget.dataset.prefname;
 
-        if (e.target.checked === true) {
-            // チェックを入れたときの処理
-            const get = async () => {
-                const result = await getPopulationComposition(targetKey);
-                const resultData = result.data.result.data[0]
-                console.log(resultData)
-                resultData.data.prefCode = targetKey;
-                resultData.data.prefName = targetPrefName;
-                const tmpValue = resultData.data.map(
-                    (value) => {
-                        return value.value;
-                    }
-                )
-                console.log(tmpValue)
-                const tmpPrefName = resultData.data.prefName;
-                setPopulationData([...populationData, {name: tmpPrefName, data: tmpValue}]); //　配列の末尾にチェックが入った都道府県のデータを追加
-            }
-            get();
-        }else{
-            // チェックを外した時の処理
-            console.log(populationData)
-            const filteredArray = populationData.filter(
-                (obj) => {
-                    console.log(obj);
-                return obj.name !== targetPrefName // targetName と prefName が一致している要素をfalseとして返す
-            })
+    if (e.target.checked === true) {
+      // チェックを入れたときの処理
+      const get = async () => {
+        const result = await getPopulationComposition(targetKey);
+        const resultData = result.data.result.data[0];
+        resultData.data.prefCode = targetKey;
+        resultData.data.prefName = targetPrefName;
+        const tmpValue = resultData.data.map(
+          (value) => value.value,
+        );
+        const tmpPrefName = resultData.data.prefName;
+        // eslint-disable-next-line max-len
+        setPopulationData([...populationData, { name: tmpPrefName, data: tmpValue }]); // 配列の末尾にチェックが入った都道府県のデータを追加
+      };
+      get();
+    } else {
+      // チェックを外した時の処理
+      // eslint-disable-next-line react/prop-types
+      const filteredArray = populationData.filter(
+        (obj) => obj.name !== targetPrefName // targetName と prefName が一致している要素をfalseとして返す
+        ,
+      );
 
-            setPopulationData(filteredArray); // targetName と prefName が一致していない要素のみを残した新しい配列を格納
-        }
-
+      setPopulationData(filteredArray); // targetName と prefName が一致していない要素のみを残した新しい配列を格納
     }
-    return (
-        <div className="checkboxes">
-            {
+  };
+  return (
+    <div className="checkboxes">
+      {
+        // eslint-disable-next-line react/prop-types
                 prefectureData?.map(
-                    (d, index) => {
-                        return (
-                            <li>{d?.prefName} <input type="checkbox" data-prefname={d?.prefName} data-key={index + 1}
-                                                     onChange={(e) => handleRadioButtons(e)}/></li>
-                        )
-                    }
+                  (d, index) => (
+                    <li>
+                      {d?.prefName}
+                      {' '}
+                      <input
+                        type="checkbox"
+                        data-prefname={d?.prefName}
+                        data-key={index + 1}
+                        onChange={(e) => handleRadioButtons(e)}
+                      />
+                    </li>
+                  ),
                 )
             }
-        </div>
+    </div>
 
-    )
-
+  );
 };
 
 export default RadioButtons;
