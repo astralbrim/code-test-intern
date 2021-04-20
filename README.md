@@ -31,3 +31,7 @@ yarn build // /build以下にバンドルしたファイルを出力する
 yarn lint // ESlintを使用し, コードをチェックをする
 yarn lint:fix // ESlintを使用し, コードをチェックしたのち修正する
 ```
+
+### API-KEYについて
+
+API-KEYをクライアント側で隠ぺいする方法がわからなかったので/src/config.jsにapiKeyを記述してからstartやbuildをお願いいたします。
